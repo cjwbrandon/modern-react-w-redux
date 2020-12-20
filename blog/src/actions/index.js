@@ -13,13 +13,25 @@ export const fetchPostsAndUsers = () => async (dispatch, getState) => {
   // 2. Find Unique user ids from list of posts
   // console.log(getState().posts);
   // const userIds = _.uniq(_.map(getState().posts, "userId"));
-  const userIds = [...new Set(getState().posts.map((post) => post.userId))];
+  // const userIds = [...new Set(getState().posts.map((post) => post.userId))];
   // console.log(userIds);
 
   // 3. Iterate unique user ids
-  userIds.forEach((id) => dispatch(fetchUser(id)));
+  // userIds.forEach((id) => dispatch(fetchUser(id)));
   // if you require to await
   // const _ = await Promise.all(userIds.map((id) => dispatch(fetchUser(id))));
+
+  // Chaining 2 & 3 with Lodash
+  // _.chain(getState().posts)
+  //   .map("userId")
+  //   .uniq()
+  //   .forEach((id) => dispatch(fetchUser(id)))
+  //   .value();
+
+  // Chaining with JS
+  [...new Set(getState().posts.map((post) => post.userId))].forEach((id) =>
+    dispatch(fetchUser(id))
+  );
 };
 
 // Using Redux-thunk -> We can use async await here
