@@ -9,6 +9,12 @@
       "title": "OtherStream",
       "description": "Some other stream",
       "id": 2
+    },
+    {
+      "title": "Stream with userId",
+      "description": "Random Stream",
+      "userId": "113585355307893906232",
+      "id": 3
     }
   ]
 }
