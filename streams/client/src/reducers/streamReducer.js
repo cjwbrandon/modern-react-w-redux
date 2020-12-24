@@ -12,7 +12,9 @@ const streamReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_STREAMS:
       return { ...state, ..._.mapKeys(action.payload, "id") };
-    case [FETCH_STREAM, CREATE_STREAM, EDIT_STREAM]:
+    case FETCH_STREAM:
+    case CREATE_STREAM:
+    case EDIT_STREAM:
       // Old syntax
       // const newState = { ...state };
       // newState[action.payload.id] = action.payload;
