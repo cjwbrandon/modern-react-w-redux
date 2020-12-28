@@ -17,7 +17,9 @@ class Button extends React.Component {
           <button className={`ui button ${color}`}>
             {/* Provide a function as a child -> Consumer parses the value of the context to the function and invokes it whenever it renders */}
             <LanguageContext.Consumer>
-              {(value) => (value === "english" ? "Submit" : "Voorleggen")}
+              {({ language }) =>
+                language === "english" ? "Submit" : "Voorleggen"
+              }
             </LanguageContext.Consumer>
           </button>
         )}
