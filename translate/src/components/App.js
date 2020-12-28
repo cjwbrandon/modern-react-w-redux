@@ -1,6 +1,7 @@
 import React from "react";
 import UserCreate from "./UserCreate";
 import LanguageContext from "../contexts/LanguageContext";
+import ColorContext from "../contexts/ColorContext";
 
 class App extends React.Component {
   state = { language: "english" };
@@ -24,9 +25,20 @@ class App extends React.Component {
           />
         </div>
         {/* Must be 'value' -> parse value to put in the Context Object */}
-        <LanguageContext.Provider value={this.state.language}>
+        {/* Can have nested Providers for each context -> order does not matter */}
+        <ColorContext.Provider value="red">
+          <LanguageContext.Provider value={this.state.language}>
+            <UserCreate />
+          </LanguageContext.Provider>
+        </ColorContext.Provider>
+
+        {/* Shows separate pipe/channel that Context.Provider creates */}
+        {/* <LanguageContext.Provider value="dutch">
           <UserCreate />
-        </LanguageContext.Provider>
+        </LanguageContext.Provider> */}
+
+        {/* Always get the default value only and never from the provider */}
+        {/* <UserCreate /> */}
       </div>
     );
   }
