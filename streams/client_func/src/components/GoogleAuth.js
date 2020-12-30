@@ -16,7 +16,6 @@ const GoogleAuth = (props) => {
         })
         .then(() => {
           auth = window.gapi.auth2.getAuthInstance();
-          console.log(auth);
           onAuthChange(auth.isSignedIn.get());
           auth.isSignedIn.listen(onAuthChange);
         });
