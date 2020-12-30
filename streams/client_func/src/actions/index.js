@@ -5,6 +5,7 @@ import {
   FETCH_STREAMS,
   CREATE_STREAM,
   DELETE_STREAM,
+  EDIT_STREAM,
 } from "./types";
 import history from "../history";
 import streams from "../apis/streams";
@@ -48,5 +49,12 @@ export const deleteStream = (id) => async (dispatch) => {
   await streams.delete(`/streams/${id}`);
 
   dispatch({ type: DELETE_STREAM, payload: id });
+  history.push("/");
+};
+
+export const editStream = (id, formValues) => async (dispatch) => {
+  const response = await streams.patch(`/streams/${id}`, formValues);
+
+  dispatch({ type: EDIT_STREAM, payload: response.data });
   history.push("/");
 };

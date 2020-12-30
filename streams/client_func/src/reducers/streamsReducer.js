@@ -4,6 +4,7 @@ import {
   FETCH_STREAMS,
   CREATE_STREAM,
   DELETE_STREAM,
+  EDIT_STREAM,
 } from "../actions/types";
 
 const streamsReducer = (state = {}, action) => {
@@ -12,6 +13,7 @@ const streamsReducer = (state = {}, action) => {
       return { ...state, ..._.mapKeys(action.payload, "id") };
     case FETCH_STREAM:
     case CREATE_STREAM:
+    case EDIT_STREAM:
       return { ...state, [action.payload.id]: action.payload };
     case DELETE_STREAM:
       return _.omit(state, action.payload);
