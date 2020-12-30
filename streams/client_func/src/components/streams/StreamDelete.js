@@ -26,9 +26,11 @@ const renderContent = (props) => {
 };
 
 const StreamDelete = (props) => {
+  const { fetchStream } = props;
+
   useEffect(() => {
-    props.fetchStream(props.match.params.id);
-  }, []);
+    fetchStream(props.match.params.id);
+  }, [fetchStream, props.match.params.id]);
 
   return (
     <Modal

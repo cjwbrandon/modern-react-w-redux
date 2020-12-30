@@ -6,9 +6,11 @@ import { fetchStream, editStream } from "../../actions";
 import StreamForm from "./StreamForm";
 
 const StreamEdit = (props) => {
+  const { fetchStream } = props;
+
   useEffect(() => {
-    props.fetchStream(props.match.params.id);
-  }, []);
+    fetchStream(props.match.params.id);
+  }, [fetchStream, props.match.params.id]);
 
   const onSubmit = (formValues) => {
     props.editStream(props.match.params.id, formValues);
@@ -22,7 +24,7 @@ const StreamEdit = (props) => {
       <StreamForm
         initialValues={_.pick(props.stream, "title", "description")}
         onSubmit={onSubmit}
-      />
+      ></StreamForm>
     </div>
   );
 };

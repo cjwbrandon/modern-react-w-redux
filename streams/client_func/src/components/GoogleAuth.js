@@ -1,11 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { signIn, signOut } from "../actions";
 
 const GoogleAuth = (props) => {
-  let auth;
+  const auth = useRef();
+  const { signIn, signOut } = props;
 
   useEffect(() => {
+    const onAuthChange = (isSignedIn) => {
+      if (isSignedIn) signIn(auth.current.currentUser.get().getId());
+      else signOut();
+    };
+
     // Load auth client
     window.gapi.load("client:auth2", () => {
       // Initialise client with client id and scope
@@ -15,24 +21,19 @@ const GoogleAuth = (props) => {
           scope: "email",
         })
         .then(() => {
-          auth = window.gapi.auth2.getAuthInstance();
-          onAuthChange(auth.isSignedIn.get());
-          auth.isSignedIn.listen(onAuthChange);
+          auth.current = window.gapi.auth2.getAuthInstance();
+          onAuthChange(auth.current.isSignedIn.get());
+          auth.current.isSignedIn.listen(onAuthChange);
         });
     });
-  }, []);
-
-  const onAuthChange = (isSignedIn) => {
-    if (isSignedIn) props.signIn(auth.currentUser.get().getId());
-    else props.signOut();
-  };
+  }, [signIn, signOut]);
 
   const onSignInClick = () => {
-    auth.signIn();
+    auth.current.signIn();
   };
 
   const onSignOutClick = () => {
-    auth.signOut();
+    auth.current.signOut();
   };
 
   const renderAuthButton = () => {

@@ -26,9 +26,9 @@ const renderList = (props) => {
       {renderAdmin(props, stream)}
       <i className="large middle aligned icon camera" />
       <div className="content">
-        {/* <Link to={`/streams/${stream.id}`} className="header">
+        <Link to={`/streams/${stream.id}`} className="header">
           {stream.title}
-        </Link> */}
+        </Link>
         <div className="description">{stream.description}</div>
       </div>
     </div>
@@ -48,9 +48,11 @@ const renderCreate = (props) => {
 };
 
 const StreamOverview = (props) => {
+  const { fetchStreams } = props;
+
   useEffect(() => {
-    props.fetchStreams();
-  }, []);
+    fetchStreams();
+  }, [fetchStreams]);
 
   return (
     <div>
